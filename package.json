@@ -1,0 +1,17 @@
+{
+  "name": "ontario-politics-tracker",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "devStart": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "Peter Montgomery McCall",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
+}
