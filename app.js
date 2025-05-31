@@ -15,7 +15,7 @@ const categories = {
 app.get('/', async (req, res) => {
     try {
         // Fetch API from NewsAPI
-        const baseTopic = "ontario politics"
+        const baseTopic = "ontario"
         const CA_Articles = "cbc.ca,globalnews.ca,thestar.com,nationalpost.com,ctvnews.ca"
         const response = await fetch(`https://newsapi.org/v2/everything?q=${encodeURIComponent(baseTopic)}&language=en&domains=${CA_Articles}&sortBy=publishedAt&apiKey=${newsAPI_key}`);
 
@@ -29,13 +29,17 @@ app.get('/', async (req, res) => {
 
         const article = data.articles[0];
 
-        const result = {
-            source: article.source.name,
-            author: article.author,
-            title: article.title,
-            description: article.description,
-            url: article.url
-        };
+        const result = data.articles.map(article => {
+            const matchedCategories = categorizeArticle(article);
+            return {
+                source: article.source.name,
+                author: article.author,
+                title: article.title,
+                description: article.description,
+                url: article.url,
+                categories: matchedCategories
+            };
+        });
 
         res.json(result)
     }
@@ -50,14 +54,31 @@ app.listen(PORT, () => {
 
 function categorizeArticle(article) {
     const text = `${article.title} ${article.description}`.toLowerCase();
-    const matchedCategories = [];
+    const matched = [];
 
-    for (const [category, keywords] of Object.entries(categories)) {
-        // Check if any keyword appears in the article text
-        if (keywords.some(word => text.includes(word))) {
-            matchedCategories.push(category); // Add category to result
+    for (let cat in categories) {
+        let keywordList = categories[cat];
+        for (let i = 0; i < keywordList.length; i++) {
+            let word = keywordList[i];
+            if (text.includes(word)) {
+                matched.push(cat);
+                break;
+            }
         }
     }
-
-    return matchedCategories;
+    return matched;
 }
+
+// function categorizeArticle(article) {
+//     const text = `${article.title} ${article.description}`.toLowerCase();
+//     const matchedCategories = [];
+
+//     for (const [category, keywords] of Object.entries(categories)) {
+//         // Check if any keyword appears in the article text
+//         if (keywords.some(word => text.includes(word))) {
+//             matchedCategories.push(category); // Add category to result
+//         }
+//     }
+
+//     return matchedCategories;
+// }
