@@ -15,7 +15,7 @@ const categories = {
 app.get('/', async (req, res) => {
     try {
         // Fetch API from NewsAPI
-        const baseTopic = "ontario"
+        const baseTopic = "ontario politics"
         const CA_Articles = "cbc.ca,globalnews.ca,thestar.com,nationalpost.com,ctvnews.ca"
         const response = await fetch(`https://newsapi.org/v2/everything?q=${encodeURIComponent(baseTopic)}&language=en&domains=${CA_Articles}&sortBy=publishedAt&apiKey=${newsAPI_key}`);
 
@@ -29,6 +29,7 @@ app.get('/', async (req, res) => {
 
         const article = data.articles[0];
 
+        // Sort the articles into different categories
         const result = data.articles.map(article => {
             const matchedCategories = categorizeArticle(article);
             return {
@@ -69,16 +70,17 @@ function categorizeArticle(article) {
     return matched;
 }
 
-// function categorizeArticle(article) {
-//     const text = `${article.title} ${article.description}`.toLowerCase();
-//     const matchedCategories = [];
-
-//     for (const [category, keywords] of Object.entries(categories)) {
-//         // Check if any keyword appears in the article text
-//         if (keywords.some(word => text.includes(word))) {
-//             matchedCategories.push(category); // Add category to result
-//         }
-//     }
-
-//     return matchedCategories;
-// }
+function checkDuplicateArticle(title1, title2) {
+    // Perform fuzzy matching between titles to check duplication
+    // Turn title1's words into key and frequency into value
+    const words = title1.split(" ");
+    let title1_wordCount = {};
+    for (let i = 0; i < words.length; i++) {
+        const word = words[i]
+        if (title1_wordCount[word]) {
+            title1_wordCount[word] += 1;
+        } else {
+            title1_wordCount[word] = 1;
+        }
+    }
+}
