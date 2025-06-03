@@ -73,14 +73,36 @@ function categorizeArticle(article) {
 function checkDuplicateArticle(title1, title2) {
     // Perform fuzzy matching between titles to check duplication
     // Turn title1's words into key and frequency into value
-    const words = title1.split(" ");
-    let title1_wordCount = {};
-    for (let i = 0; i < words.length; i++) {
-        const word = words[i]
-        if (title1_wordCount[word]) {
-            title1_wordCount[word] += 1;
-        } else {
-            title1_wordCount[word] = 1;
+    const title1_wordCount = getWordCount(title1);
+    const title2_wordCount = getWordCount(title2);
+    let matchedWords = 0;
+    
+    // Compare the 2 word counts
+    for (let key in title1_wordCount) {
+        if (title1_wordCount[key] && title2_wordCount[key]) {
+            matchedWords += Math.min(title1_wordCount[key], title2_wordCount[key])   
         }
     }
+    
+    const title1_length = title1.split(" ").length;
+    return matchedWords / title1_length;
+}
+
+function getWordCount(str) {
+    const words = str.split(" ");
+    let wordCount = {};
+    for (let i = 0; i < words.length; i++) {
+        // Clean the word: lowercase and remove punctuation
+        const word = words[i].toLowerCase().replace(/[^\w]/g, "");
+
+        // Skip empty strings (could happen if word is just punctuation)
+        if (word === "") continue;
+
+        if (wordCount[word]) {
+            wordCount[word] += 1;
+        } else {
+            wordCount[word] = 1;
+        }
+    }
+    return wordCount;
 }
