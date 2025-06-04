@@ -30,7 +30,7 @@ app.get('/', async (req, res) => {
         const article = data.articles[0];
 
         // Sort the articles into different categories
-        const result = data.articles.map(article => {
+        const result = await data.articles.map(article => {
             const matchedCategories = categorizeArticle(article);
             return {
                 source: article.source.name,
@@ -55,13 +55,13 @@ app.listen(PORT, () => {
 
 function categorizeArticle(article) {
     const text = `${article.title} ${article.description}`.toLowerCase();
+    const tokens = text.match(/\b\w+\b/g);  // extract words using regex
+    const tokenSet = new Set(tokens);       // quick lookup
     const matched = [];
 
     for (let cat in categories) {
-        let keywordList = categories[cat];
-        for (let i = 0; i < keywordList.length; i++) {
-            let word = keywordList[i];
-            if (text.includes(word)) {
+        for (let keyword of categories[cat]) {
+            if (tokenSet.has(keyword)) {
                 matched.push(cat);
                 break;
             }
@@ -118,3 +118,10 @@ function getWordCount(str) {
     }
     return wordCount;
 }
+
+const news = {
+    title: "Less than half of Toronto residents approve of Mayor Olivia Chow's performance: poll",
+    description: "The Leger survey asked Toronto residents about their mayor as part of a broader poll on Ontario politics.",
+}
+
+console.log(categorizeArticle(news));
