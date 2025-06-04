@@ -19,7 +19,7 @@ function categorizeArticle(article) {
 
 function checkDuplicateArticle(title1, title2) {
     // Perform fuzzy matching between titles to check duplication
-    // Turn title1's words into key and frequency into value
+    // Turn title's words into key and frequency into value
     const title1_wordCount = getWordCount(title1);
     const title2_wordCount = getWordCount(title2);
     let matchedWords = 0;
