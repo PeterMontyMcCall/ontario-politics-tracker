@@ -3,7 +3,6 @@ const app = express();
 require('dotenv').config();
 const { categorizeArticle, checkDuplicateArticle } = require('./helpers/textUtils');
 
-
 const PORT = process.env.PORT || 3000;
 const newsAPI_key = process.env.NEWS_API_KEY;
 
@@ -47,3 +46,4 @@ app.get('/', async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
+
