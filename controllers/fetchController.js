@@ -1,8 +1,9 @@
 const { categorizeArticle, checkDuplicateArticle } = require('../helpers/textUtils');
-const newsAPI_key = process.env.NEWS_API_KEY;
 
 async function fetchArticles(req, res) {
     try {
+        const newsAPI_key = process.env.NEWS_API_KEY;
+
         const baseTopic = "(ontario OR toronto OR \"queen's park\" OR \"doug ford\") AND (politics OR policy OR government OR legislature OR law OR bill)"
         const CA_Articles = "cbc.ca,globalnews.ca,thestar.com,nationalpost.com,ctvnews.ca"
         const response = await fetch(`https://newsapi.org/v2/everything?q=${encodeURIComponent(baseTopic)}&language=en&domains=${CA_Articles}&sortBy=publishedAt&apiKey=${newsAPI_key}`);

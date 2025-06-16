@@ -13,6 +13,6 @@ async function postArticle(req, res) {
     }
 }
 
-module.export = {
+module.exports = {
     postArticle
 };

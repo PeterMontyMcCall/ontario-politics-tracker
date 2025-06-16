@@ -1,8 +1,10 @@
 const pool = require("../db");
 
 async function insertArticle(article) {
-    const query = `INSERT INTO ontario_politics_tracker (title, author, source, description, url, published_at, cetegories)
-                    VALUES ($1, $2, $3, $4, $5, $6)
+    console.log(`Inserting ${article.title} into database`);
+
+    const query = `INSERT INTO article (title, author, source, description, url, published_at, categories)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7)
                     ON CONFLICT (url) DO NOTHING
                     RETURNING *;`;
 
