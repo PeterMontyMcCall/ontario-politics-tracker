@@ -1,10 +1,10 @@
-const { insertArticle } = require('../models/articleModel');
+const articleModel = require('../models/articleModel');
 
 async function postArticle(req, res) {
     try {
         const article = req.body;
 
-        const result = await insertArticle(article);
+        const result = await articleModel.insertArticle(article);
         res.status(201).json(result.rows[0] || { message: 'Article already exists.' });
 
     } catch (error) {
@@ -13,6 +13,19 @@ async function postArticle(req, res) {
     }
 }
 
+async function getArticle(req, res) {
+    try {
+        const articles = await articleModel.getArticles();
+        res.status(200).json(articles.rows);
+    } catch (error) {
+        console.error('Error in getArticle controller : ', error);
+        if (!res.headersSent) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    }
+}
+
 module.exports = {
-    postArticle
+    postArticle,
+    getArticle
 };

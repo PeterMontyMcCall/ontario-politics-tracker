@@ -22,4 +22,13 @@ async function insertArticle(article) {
     return result;
 }
 
-module.exports = { insertArticle };
+async function getArticles() {
+    const query = `SELECT * FROM article`;
+    const result = await pool.query(query);
+    return result;
+}
+
+module.exports = {
+    insertArticle,
+    getArticles
+};
