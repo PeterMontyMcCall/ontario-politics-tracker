@@ -1,0 +1,9 @@
+:root {
+    /* Colours */
+    --color-text: #000000;
+    --color-bg: #FFFFFF;
+    --color-primary: #EEEEEE;
+    /* For container */
+    --color-secondary: #D9D9D9;
+    /* For tags and utils bg */
+}
