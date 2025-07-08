@@ -1,0 +1,29 @@
+[
+    {
+        "title": "Ford announces budget 2025",
+        "date": "2025-06-15",
+        "source": "CBC",
+        "desc": "Ontario's new budget focuses on health and infrastructure",
+        "categories": ["Budget", "Politics"],
+        "url": "https://github.com/",
+        "imageSrc": "source/cbc_logo.png"
+    },
+    {
+        "title": "Ontario government introduces new greenbelt legislation",
+        "date": "2025-06-15",
+        "source": "National Post",
+        "desc": "The Ford government has introduced new legislation to protect the greenbelt after previous development plans sparked controversy",
+        "categories": ["Environment"],
+        "url": "https://github.com/",
+        "imageSrc": "source/national_post_logo.png"
+    },
+    {
+        "title": "Ontario unveils new climate action plan",
+        "date": "2025-06-15",
+        "source": "Toronto Star",
+        "desc": "The provincial government announced a new strategy focused on reducing carbon emissions and investing in green infrastructure",
+        "categories": ["Environment"],
+        "url": "https://github.com/",
+        "imageSrc": "source/toronto_star_logo.png"
+    }
+]

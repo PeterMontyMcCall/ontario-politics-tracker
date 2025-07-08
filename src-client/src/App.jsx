@@ -1,6 +1,7 @@
+import styles from './App.module.css'
 import NavBar from './components/NavBar/NavBar.jsx'
 import SearchBar from './components/SearchBar/SearchBar.jsx'
-import styles from './App.module.css'
+import NewsFeed from './components/NewsFeed/NewsFeed.jsx'
 
 function App() {
 
@@ -8,6 +9,7 @@ function App() {
         <div className={styles.App}>
             <NavBar />
             <SearchBar />
+            <NewsFeed />
         </div>
     )
 }
