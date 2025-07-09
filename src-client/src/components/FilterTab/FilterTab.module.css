@@ -1,0 +1,123 @@
+@import "../../vars.css";
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 16px;
+    width: 300px;
+    margin: 20px 0px;
+    border-radius: 10px;
+    background-color: var(--color-primary);
+    box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.25);
+}
+
+.divider {
+    width: 100%;
+    height: 0.0625em;
+    background: #c5c5c5;
+}
+
+.filterHeader {
+    display: flex;
+    margin-bottom: 10px;
+    gap: 0.5em;
+}
+
+.filterHeader h1 {
+    font-size: 20px;
+}
+
+.sortBy {
+    margin: 10px 0px;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: 16px;
+}
+
+.sortBy select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 0.2em 0.8em;
+    background-color: var(--color-secondary);
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.4em center;
+    background-size: 1em;
+    padding-right: 1.6em;
+    cursor: pointer;
+}
+
+.newsOutlet {
+    margin: 10px 0;
+}
+
+.newsOutlet p {
+    font-size: 20px;
+    margin-bottom: 0.4em;
+}
+
+.checkboxItem {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+    margin-bottom: 0.25em;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+}
+
+.checkboxItem input {
+    opacity: 0;
+    position: absolute;
+}
+
+.customCheckbox {
+    width: 16px;
+    height: 16px;
+    border-radius: 5px;
+    display: inline-block;
+    position: relative;
+    background-color: var(--color-secondary);
+}
+
+.checkboxItem input:checked+.customCheckbox::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.categories {
+    margin: 10px 0;
+}
+
+.categories p {
+    font-size: 20px;
+    margin-bottom: 0.4em;
+}
+
+.resetBtn {
+    margin: 5px 0;
+    padding: 0.5em 0.5 em;
+    font-size: 20px;
+    color: black;
+    border: 1px solid black;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.resetBtn:hover {
+    background-color: #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
