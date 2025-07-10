@@ -38,7 +38,7 @@
 
 .logoContainer {
     margin-bottom: 10px;
-    height: 16px;
+    /* height: 16px; */
     display: flex;
     justify-content: flex-start;
     overflow: hidden;
