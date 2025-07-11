@@ -2,8 +2,8 @@ import styles from './NewsFeed.module.css';
 import { getImageUrl } from "../../utils";
 import { useEffect, useState } from 'react';
 
-function NewsFeed() {
-    // Load from backend
+function NewsFeed({ searchTerm }) {
+    // Fetch from backend
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -16,6 +16,18 @@ function NewsFeed() {
             })
             .catch(() => setLoading(false));
     }, []);
+
+    // Filter articles
+    const filteredArticles = articles.filter(article => {
+        if (!searchTerm) return true; // If search is empty, show all
+        const text = `${article.title} ${article.description}`.toLowerCase();
+        return text.includes(searchTerm.toLowerCase());
+    })
+
+    // If no match found, show empty
+    if (filteredArticles.length === 0) {
+        return (<p className={styles.emptyFeed}>No articles found...</p>);
+    }
 
     if (loading) return <p>Loading...</p>
 
@@ -46,7 +58,7 @@ function NewsFeed() {
     return (
         <section className={styles.feed}>
             <ul>
-                {articles.map((article, id) => {
+                {filteredArticles.map((article, id) => {
                     const logo = logoMap[article.source];
                     return (
                         <li key={id} className={styles.article}>
