@@ -5,7 +5,11 @@ import NewsFeed from "../NewsFeed/NewsFeed.jsx";
 import styles from "./Layout.module.css";
 
 function Layout() {
+    // Search bar
     const [searchTerm, setSearchTerm] = useState("");
+
+    // Date drop down menu
+    const [date, setDate] = useState("");
 
     /* News Outlet */
     // Create a useState for every news outlet
@@ -36,15 +40,18 @@ function Layout() {
                     setNewsOutlets={setNewsOutlets}
                     categories={categories}
                     setCategories={setCategories}
+                    date={date}
+                    setDate={setDate}
                 />
             </aside>
             <main className={styles.mainContent}>
                 <SearchBar onSearch={setSearchTerm} />
                 <NewsFeed
                     searchTerm={searchTerm}
-                    // Pass categories and newsOutlets useStates to NewsFeed for filtering articles
+                    // Pass categories, newsOutlets and date useStates to NewsFeed for filtering articles
                     newsOutlets={newsOutlets}
                     categories={categories}
+                    date={date}
                 />
             </main>
         </div>

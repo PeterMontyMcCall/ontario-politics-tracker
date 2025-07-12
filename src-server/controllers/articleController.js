@@ -15,7 +15,24 @@ async function postArticle(req, res) {
 
 async function getArticle(req, res) {
     try {
-        const articles = await articleModel.getArticles();
+        // Sort by search term
+        const searchTerm = req.query.q || "";
+
+        // Sort by news outlets
+        const outlets = req.query.outlets
+            ? req.query.outlets.split(",")
+            : [];
+
+        // Sort by categories
+        const categories = req.query.categories
+            ? req.query.categories.split(",")
+            : [];
+
+        // Sort by date
+        const date = req.query.sort || "";
+
+        // Fetch from database
+        const articles = await articleModel.getArticles(searchTerm, outlets, categories, date);
         res.status(200).json(articles.rows);
     } catch (error) {
         console.error('Error in getArticle controller : ', error);

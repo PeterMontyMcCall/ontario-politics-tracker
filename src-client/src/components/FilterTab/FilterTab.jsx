@@ -1,8 +1,8 @@
-import newsOutletOptions from '../../data/news_outlet.json'
+import newsOutletsObject from '../../../../src-shared/newsOutlet.js';
 import categoryOptions from '../../data/category.json'
 import styles from './FilterTab.module.css';
 
-function FilterTab({ newsOutlets, setNewsOutlets, categories, setCategories }) {
+function FilterTab({ newsOutlets, setNewsOutlets, categories, setCategories, date, setDate }) {
     // Change the state of the checkbox group (e.g., news outlets or categories)
     const handleCheckboxChange = (event, setState) => {
         const { value, checked } = event.target;
@@ -32,6 +32,15 @@ function FilterTab({ newsOutlets, setNewsOutlets, categories, setCategories }) {
         );
     }
 
+    // Date drop down menu
+    const handleSelectChange = (event) => {
+        const { value } = event.target;
+        setDate(value);
+        console.log(date);
+    }
+
+    const newsOutletOptions = Object.values(newsOutletsObject);
+
     return (
         <section className={styles.filter}>
             <div className={styles.filterHeader}>
@@ -41,10 +50,10 @@ function FilterTab({ newsOutlets, setNewsOutlets, categories, setCategories }) {
             <div className={styles.divider} />
             <div className={styles.sortBy}>
                 <label htmlFor="sort">Sort by</label>
-                <select id="sort" name="sort">
-                    <option value="nothing"></option>
-                    <option value="latest">Latest</option>
-                    <option value="oldest">Oldest</option>
+                <select value={date} id="sort" name="sort" onChange={handleSelectChange}>
+                    <option value=""></option>
+                    <option value="desc">Latest</option>
+                    <option value="asc">Oldest</option>
                 </select>
             </div>
             <div className={styles.divider} />
@@ -55,12 +64,12 @@ function FilterTab({ newsOutlets, setNewsOutlets, categories, setCategories }) {
                         <input
                             type="checkbox"
                             name={outlet.name}
-                            value={outlet.value}
-                            checked={newsOutlets[outlet.value]}
+                            value={outlet.id}
+                            checked={newsOutlets[outlet.id]}
                             onChange={e => handleCheckboxChange(e, setNewsOutlets)} // Create a function so React re-renders
                         />
                         <span className={styles.customCheckbox}></span>
-                        {outlet.source}
+                        {outlet.name}
                     </label>
                 ))}
             </div>

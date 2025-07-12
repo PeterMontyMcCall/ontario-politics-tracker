@@ -1,4 +1,5 @@
 const pool = require("../db");
+const { normalizeOutletDBName } = require('../../src-shared/newsOutlet.js');
 
 async function insertArticle(article) {
     console.log(`Inserting ${article.title} into database`);
@@ -22,9 +23,51 @@ async function insertArticle(article) {
     return result;
 }
 
-async function getArticles() {
-    const query = `SELECT * FROM article`;
-    const result = await pool.query(query);
+async function getArticles(searchTerm = "", outlets = [], categories = [], date = "") {
+    // Start with the base query for all articles
+    let query = "SELECT * FROM article";
+    // Store individual SQL WHERE conditions here
+    let conditions = [];
+    // Store parameter values to safely inject into the SQL query
+    let values = [];
+    // Used to keep track of the parameter number (for $1, $2, $3, ...)
+    let idx = 1;
+
+    // Search term
+    if (searchTerm) {
+        conditions.push(`(LOWER(title) LIKE $${idx} OR LOWER(description) LIKE $${idx})`);
+        values.push(`%${searchTerm.toLowerCase()}%`);
+        idx++;
+    }
+
+    // News outlets
+    if (outlets.length) {
+        conditions.push(`source = ANY($${idx})`);
+        values.push(outlets.map(o => normalizeOutletDBName(o)));
+        idx++;
+    }
+
+    // Categories
+    if (categories.length) {
+        conditions.push(`categories && $${idx}`);
+        values.push(categories);
+        idx++;
+    }
+
+    // Combine all WHERE conditions into the query
+    if (conditions.length) {
+        query += " WHERE " + conditions.join(" AND ");
+    }
+
+    // Sort by Date last
+    if (date) query += ` ORDER BY published_at ${date}`;
+
+    // console.log("conditions = ", conditions);
+    // console.log("query = ", query);
+    // console.log("values = ", values, "\n");
+
+    // Run the query against the database
+    const result = await pool.query(query, values);
     return result;
 }
 
