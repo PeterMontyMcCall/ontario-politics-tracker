@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import newsOutletOptions from '../../data/news_outlet.json'
 import categoryOptions from '../../data/category.json'
 import styles from './FilterTab.module.css';
@@ -12,7 +11,7 @@ function FilterTab({ newsOutlets, setNewsOutlets, categories, setCategories }) {
         // and set the new state
         // setState(prev => ({
         //     ...prev,
-        //     [name]: checked
+        //     [value]: checked
         // }));
         setState(prev => {
             const newState = { ...prev, [value]: checked };
@@ -20,6 +19,18 @@ function FilterTab({ newsOutlets, setNewsOutlets, categories, setCategories }) {
             return newState;
         });
     };
+
+    // Reset button functionality
+    // Clears all the checkboxes when clicked
+    const resetButtonClick = () => {
+        setNewsOutlets(prev =>
+            Object.fromEntries(Object.keys(prev).map(key => [key, false]))
+        )
+
+        setCategories(prev =>
+            Object.fromEntries(Object.keys(prev).map(key => [key, false]))
+        );
+    }
 
     return (
         <section className={styles.filter}>
@@ -31,9 +42,9 @@ function FilterTab({ newsOutlets, setNewsOutlets, categories, setCategories }) {
             <div className={styles.sortBy}>
                 <label htmlFor="sort">Sort by</label>
                 <select id="sort" name="sort">
+                    <option value="nothing"></option>
                     <option value="latest">Latest</option>
                     <option value="oldest">Oldest</option>
-                    <option value="popular">Popular</option>
                 </select>
             </div>
             <div className={styles.divider} />
@@ -70,7 +81,11 @@ function FilterTab({ newsOutlets, setNewsOutlets, categories, setCategories }) {
                     </label>
                 ))}
             </div>
-            <button className={styles.resetBtn}>Reset Filter</button>
+            <button
+                className={styles.resetBtn}
+                onClick={resetButtonClick}
+            >
+                Reset Filter</button>
         </section>
     );
 }
