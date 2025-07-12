@@ -1,0 +1,22 @@
+{
+  "CBC": {
+    "imageSrc": "source/cbc_logo.png",
+    "height": "16px"
+  },
+  "National Post": {
+    "imageSrc": "source/national_post_logo.png",
+    "height": "19px"
+  },
+  "Toronto Star": {
+    "imageSrc": "source/toronto_star_logo.png",
+    "height": "18px"
+  },
+  "CTV News": {
+    "imageSrc": "source/ctv_news_logo.png",
+    "height": "20px"
+  },
+  "Global News": {
+    "imageSrc": "source/global_news_logo.png",
+    "height": "40px"
+  }
+}

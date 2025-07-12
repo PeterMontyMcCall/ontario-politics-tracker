@@ -1,6 +1,26 @@
+import { useState } from 'react';
+import newsOutletOptions from '../../data/news_outlet.json'
+import categoryOptions from '../../data/category.json'
 import styles from './FilterTab.module.css';
 
-function FilterTab() {
+function FilterTab({ newsOutlets, setNewsOutlets, categories, setCategories }) {
+    // Change the state of the checkbox group (e.g., news outlets or categories)
+    const handleCheckboxChange = (event, setState) => {
+        const { value, checked } = event.target;
+        // Create a new object (copying the previous state),
+        // update the selected value,
+        // and set the new state
+        // setState(prev => ({
+        //     ...prev,
+        //     [name]: checked
+        // }));
+        setState(prev => {
+            const newState = { ...prev, [value]: checked };
+            console.log('Checkbox state:', newState); // <--- Add this
+            return newState;
+        });
+    };
+
     return (
         <section className={styles.filter}>
             <div className={styles.filterHeader}>
@@ -19,63 +39,38 @@ function FilterTab() {
             <div className={styles.divider} />
             <div className={styles.newsOutlet}>
                 <p>News Outlet:</p>
-                <label className={styles.checkboxItem}>
-                    <input type="checkbox" name="cbc" value="cbc" />
-                    <span className={styles.customCheckbox}></span>
-                    CBC
-                </label>
-                <label className={styles.checkboxItem}>
-                    <input type="checkbox" name="national_post" value="national_post" />
-                    <span className={styles.customCheckbox}></span>
-                    The National Post
-                </label>
-                <label className={styles.checkboxItem}>
-                    <input type="checkbox" name="toronto_star" value="toronto_star" />
-                    <span className={styles.customCheckbox}></span>
-                    Toronto Star
-                </label>
-                <label className={styles.checkboxItem}>
-                    <input type="checkbox" name="ctv_news" value="ctv_news" />
-                    <span className={styles.customCheckbox}></span>
-                    CTV News
-                </label>
-                <label className={styles.checkboxItem}>
-                    <input type="checkbox" name="global_news" value="global_news" />
-                    <span className={styles.customCheckbox}></span>
-                    Global News
-                </label>
+                {newsOutletOptions.map((outlet) => (
+                    <label key={outlet.id} className={styles.checkboxItem}>
+                        <input
+                            type="checkbox"
+                            name={outlet.name}
+                            value={outlet.value}
+                            checked={newsOutlets[outlet.value]}
+                            onChange={e => handleCheckboxChange(e, setNewsOutlets)} // Create a function so React re-renders
+                        />
+                        <span className={styles.customCheckbox}></span>
+                        {outlet.source}
+                    </label>
+                ))}
             </div>
             <div className={styles.divider} />
             <div className={styles.categories}>
                 <p>Categories:</p>
-                <label className={styles.checkboxItem}>
-                    <input type="checkbox" name="environment" value="environment" />
-                    <span className={styles.customCheckbox}></span>
-                    Environment
-                </label>
-                <label className={styles.checkboxItem}>
-                    <input type="checkbox" name="health" value="health" />
-                    <span className={styles.customCheckbox}></span>
-                    Health
-                </label>
-                <label className={styles.checkboxItem}>
-                    <input type="checkbox" name="crimes" value="crimes" />
-                    <span className={styles.customCheckbox}></span>
-                    Crimes
-                </label>
-                <label className={styles.checkboxItem}>
-                    <input type="checkbox" name="education" value="education" />
-                    <span className={styles.customCheckbox}></span>
-                    Education
-                </label>
-                <label className={styles.checkboxItem}>
-                    <input type="checkbox" name="transportation" value="transportation" />
-                    <span className={styles.customCheckbox}></span>
-                    Transportation
-                </label>
+                {categoryOptions.map((category) => (
+                    <label key={category.id} className={styles.checkboxItem}>
+                        <input
+                            type="checkbox"
+                            name={category.name}
+                            value={category.value}
+                            checked={categories[category.value]}
+                            onChange={e => handleCheckboxChange(e, setCategories)} // Create a function so React re-renders
+                        />
+                        <span className={styles.customCheckbox}></span>
+                        {category.source}
+                    </label>
+                ))}
             </div>
             <button className={styles.resetBtn}>Reset Filter</button>
-
         </section>
     );
 }

@@ -1,8 +1,9 @@
 import styles from './NewsFeed.module.css';
+import logoMap from '../../data/logo_map.json';
 import { getImageUrl } from "../../utils";
 import { useEffect, useState } from 'react';
 
-function NewsFeed({ searchTerm }) {
+function NewsFeed({ searchTerm, newsOutlets, categories }) {
     // Fetch from backend
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -17,9 +18,27 @@ function NewsFeed({ searchTerm }) {
             .catch(() => setLoading(false));
     }, []);
 
+    // Check if any of the checkbox in News Outlets is checked
+    const checkedNewsOutlets = Object.keys(newsOutlets).filter(outlet => newsOutlets[outlet]);
+
+    // Check if any of the checkbox in Categories is checked
+    const checkedCategories = Object.keys(categories).filter(cat => categories[cat]);
+
     // Filter articles
     const filteredArticles = articles.filter(article => {
+        // Filter by news outlets
+        if (checkedNewsOutlets.length !== 0) {
+            if (!newsOutlets[normalizeOutletName(article.source)]) return false;
+        }
+
+        // Filter by categories
+        if (checkedCategories.length !== 0) {
+            if (!article.categories.some((cat) => categories[cat] === true)) return false;
+        }
+
         if (!searchTerm) return true; // If search is empty, show all
+
+        // Filter by search bar
         const text = `${article.title} ${article.description}`.toLowerCase();
         return text.includes(searchTerm.toLowerCase());
     })
@@ -30,30 +49,6 @@ function NewsFeed({ searchTerm }) {
     }
 
     if (loading) return <p>Loading...</p>
-
-    // Create a mapping object for every logo for custom dimension
-    const logoMap = {
-        "CBC": {
-            src: "cbc_logo.png",
-            height: "16px"
-        },
-        "National Post": {
-            src: "national_post_logo.png",
-            height: "19px"
-        },
-        "Toronto Star": {
-            src: "toronto_star_logo.png",
-            height: "18px"
-        },
-        "CTV News": {
-            src: "ctv_news_logo.png",
-            height: "20px"
-        },
-        "Global News": {
-            src: "global_news_logo.png",
-            height: "40px"
-        }
-    };
 
     return (
         <section className={styles.feed}>
@@ -73,7 +68,7 @@ function NewsFeed({ searchTerm }) {
                                 style={{ height: logo.height }}
                             >
                                 <img
-                                    src={getImageUrl(`source/${logo.src}`)}
+                                    src={getImageUrl(logo.imageSrc)}
                                     alt={article.source}
                                 />
                             </div>
@@ -104,6 +99,13 @@ function NewsFeed({ searchTerm }) {
             </ul>
         </section>
     );
+}
+
+function normalizeOutletName(name) {
+    return name
+        .toLowerCase()           // all lowercase
+        .replace(/\s+/g, "_")    // spaces to underscores
+        .replace(/[^\w_]/g, ""); // remove non-word chars except underscore
 }
 
 export default NewsFeed;

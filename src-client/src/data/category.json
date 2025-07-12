@@ -1,0 +1,32 @@
+[
+    {
+        "source": "Environment",
+        "id": "environment",
+        "name": "Environment",
+        "value": "environment"
+    },
+        {
+        "source": "Health",
+        "id": "health",
+        "name": "Health",
+        "value": "health"
+    },
+        {
+        "source": "Crimes",
+        "id": "crimes",
+        "name": "Crimes",
+        "value": "crimes"
+    },
+        {
+        "source": "Education",
+        "id": "education",
+        "name": "Education",
+        "value": "education"
+    },
+        {
+        "source": "Transportation",
+        "id": "transportation",
+        "name": "Transportation",
+        "value": "transportation"
+    }
+]

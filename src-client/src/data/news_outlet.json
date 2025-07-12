@@ -1,0 +1,32 @@
+[
+    {
+        "source": "CBC",
+        "id": "cbc",
+        "name": "CBC",
+        "value": "cbc"
+    },
+        {
+        "source": "National Post",
+        "id": "national_post",
+        "name": "National Post",
+        "value": "national_post"
+    },
+        {
+        "source": "Toronto Star",
+        "id": "toronto_star",
+        "name": "Toronto Star",
+        "value": "toronto_star"
+    },
+        {
+        "source": "CTV News",
+        "id": "ctv_news",
+        "name": "CTV News",
+        "value": "ctv_news"
+    },
+        {
+        "source": "Global News",
+        "id": "global_news",
+        "name": "Global News",
+        "value": "global_news"
+    }
+]
