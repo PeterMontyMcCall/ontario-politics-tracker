@@ -3,7 +3,7 @@ import newsOutletsObject from '../../../../src-shared/newsOutlet.js';
 import { getImageUrl } from "../../utils";
 import { useEffect, useState } from 'react';
 
-function NewsFeed({ searchTerm, newsOutlets, categories, date }) {
+function NewsFeed({ searchTerm, newsOutlets, categories, date, currentPage, postsPerPage, setTotalPosts }) {
     // Fetch from backend
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -34,6 +34,10 @@ function NewsFeed({ searchTerm, newsOutlets, categories, date }) {
             .catch(() => setLoading(false));
     }, [searchTerm, newsOutlets, categories, date]);
 
+    useEffect(() => {
+        setTotalPosts(articles.length);
+    }, [articles, setTotalPosts]);
+
     // If no match found, show empty
     if (articles.length === 0) {
         return (<p className={styles.emptyFeed}>No articles found...</p>);
@@ -41,10 +45,16 @@ function NewsFeed({ searchTerm, newsOutlets, categories, date }) {
 
     if (loading) return <p>Loading...</p>
 
+    /* Pagination */
+    // Load 10 posts per page
+    const lastPostIndex = currentPage * postsPerPage;
+    const firstPostIndex = lastPostIndex - postsPerPage;
+    const currentPosts = articles.slice(firstPostIndex, lastPostIndex);
+
     return (
         <section className={styles.feed}>
             <ul>
-                {articles.map((article, id) => {
+                {currentPosts.map((article, id) => {
                     const logo = newsOutletsObject[article.source].logo;
                     return (
                         <li key={id} className={styles.article}>

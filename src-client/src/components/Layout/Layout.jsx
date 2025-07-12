@@ -2,6 +2,7 @@ import { useState } from "react";
 import FilterTab from "../FilterTab/FilterTab.jsx";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import NewsFeed from "../NewsFeed/NewsFeed.jsx";
+import Pagination from "../Pagination/Pagination.jsx";
 import styles from "./Layout.module.css";
 
 function Layout() {
@@ -31,6 +32,11 @@ function Layout() {
         "transportation": false
     });
 
+    /* Pagination */
+    const [totalPosts, setTotalPosts] = useState();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage, setPostsperPage] = useState(3);
+
     return (
         <div className={styles.layout}>
             <aside className={styles.sidebar}>
@@ -52,6 +58,16 @@ function Layout() {
                     newsOutlets={newsOutlets}
                     categories={categories}
                     date={date}
+                    // Past down states and useStates for Pagination
+                    currentPage={currentPage}
+                    postsPerPage={postsPerPage}
+                    setTotalPosts={setTotalPosts}
+                />
+                <Pagination
+                    totalPosts={totalPosts}
+                    postsPerPage={postsPerPage}
+                    setCurrentPage={setCurrentPage}
+                    currentPage={currentPage}
                 />
             </main>
         </div>
