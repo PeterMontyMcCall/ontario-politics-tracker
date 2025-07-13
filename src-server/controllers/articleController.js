@@ -32,8 +32,17 @@ async function getArticle(req, res) {
         const date = req.query.sort || "";
 
         // Pagination
-        const limit = req.query.limit;
-        const offset = req.query.offset;
+        // Prevent SQL Injection
+        let limit = parseInt(req.query.limit, 10);
+        let offset = parseInt(req.query.offset, 10);
+
+        // Provide default values if not set or invalid
+        if (isNaN(limit) || limit < 1 || limit > 100) {
+            limit = 10; // Default limit
+        }
+        if (isNaN(offset) || offset < 0) {
+            offset = 0; // Default offset
+        }
 
         /* Fetch from database */
         // Fetch articles for this page

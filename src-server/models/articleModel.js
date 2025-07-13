@@ -60,7 +60,12 @@ async function getArticles(searchTerm = "", outlets = [], categories = [], date 
     }
 
     // Sort by Date last
-    if (date) query += ` ORDER BY published_at ${date}`;
+    if (date) {
+        // Prevent SQL injection
+        const order = date.toLowerCase() === 'asc' ? 'ASC' :
+            date.toLowerCase() === 'desc' ? 'DESC' : null;
+        if (order) query += ` ORDER BY published_at ${date}`;
+    }
 
     // Pagination
     query += ` LIMIT ${limit} OFFSET ${offset}`;
