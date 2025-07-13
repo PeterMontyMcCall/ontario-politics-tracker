@@ -70,9 +70,9 @@ async function getArticles(searchTerm = "", outlets = [], categories = [], date 
     // Pagination
     query += ` LIMIT ${limit} OFFSET ${offset}`;
 
-    console.log("conditions = ", conditions);
-    console.log("query = ", query);
-    console.log("values = ", values, "\n");
+    // console.log("conditions = ", conditions);
+    // console.log("query = ", query);
+    // console.log("values = ", values, "\n");
 
     // Run the query against the database
     const result = await pool.query(query, values);

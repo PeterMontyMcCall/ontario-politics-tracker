@@ -53,7 +53,7 @@ function NewsFeed({ searchTerm, newsOutlets, categories, date, currentPage, post
 
     return (
         <section className={styles.feed}>
-            <ul>
+            <ul className={styles.feedList}>
                 {articles.map((article, id) => {
                     const logo = newsOutletsObject[article.source].logo;
                     return (

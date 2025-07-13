@@ -1,16 +1,21 @@
 @import "../../vars.css";
 
 .feed {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    width: 100%;
+}
+
+.feedList {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
 .article {
     display: flex;
     flex-direction: column;
     padding: 10px 20px;
-    width: 700px;
-    margin: 30px 0px;
+    width: 100%;
+    max-width: 700px;
     border-radius: 20px;
     background-color: var(--color-primary);
     box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.25);
@@ -99,4 +104,28 @@
     font-style: italic;
     font-size: 18px;
     color: #808080;
+}
+
+/* Includes 600px */
+@media (max-width: 800px) {
+    .feedList {
+        gap: 14px;
+    }
+
+    .title {
+        font-size: 19px;
+    }
+
+    .date {
+        font-size: 14px;
+    }
+
+    .desc {
+        font-size: 16px;
+    }
+
+    .category p,
+    .link {
+        font-size: 15px;
+    }
 }

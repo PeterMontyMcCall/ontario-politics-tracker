@@ -35,11 +35,18 @@ function Layout() {
     /* Pagination */
     const [totalPosts, setTotalPosts] = useState();
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage, setPostsperPage] = useState(3);
+    const [postsPerPage, setPostsperPage] = useState(5);
+
+    // Filter button
+    const [showFilter, setShowFilter] = useState(false);
 
     return (
         <div className={styles.layout}>
-            <aside className={styles.sidebar}>
+            {/* Filter button - only visible on mobile */}
+            <div className={styles.filterButton} onClick={() => setShowFilter(!showFilter)}>
+                <span className={`material-symbols-outlined ${styles.filterButtonIcon}`}>tune</span>
+            </div>
+            <aside className={`${styles.sidebar} ${showFilter ? styles.show : ''}`}>
                 <FilterTab
                     // Pass the useStates to FilterTab to update checkbox
                     newsOutlets={newsOutlets}
@@ -70,7 +77,7 @@ function Layout() {
                     currentPage={currentPage}
                 />
             </main>
-        </div>
+        </div >
     );
 }
 

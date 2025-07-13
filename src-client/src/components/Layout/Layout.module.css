@@ -6,4 +6,109 @@
     justify-content: center;
     align-items: flex-start;
     margin-top: 60px;
+    margin-bottom: 60px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.sidebar {
+    width: 250px;
+}
+
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+    width: 700px;
+
+}
+
+.filterButton {
+    display: none;
+}
+
+@media (max-width: 1200px) {
+    .layout {
+        margin-left: 5%;
+        margin-right: 5%;
+        gap: 26px;
+    }
+}
+
+@media (max-width: 600px) {
+    .layout {
+        margin-top: 40px;
+        margin-bottom: 40px;
+        margin-left: 4%;
+        margin-right: 4%;
+    }
+
+    .mainContent {
+        gap: 30px;
+        min-width: 0;
+        margin: 0;
+    }
+
+    .filterButton {
+        display: block;
+        position: fixed;
+        bottom: 25px;
+        left: 20px;
+        z-index: 10;
+    }
+
+    .filterButtonIcon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        font-size: 24px;
+        border-radius: 50%;
+        background-color: #424242;
+        color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        transition:
+            background-color 0.2s ease,
+            box-shadow 0.2s ease,
+            transform 0.1s ease;
+        cursor: pointer;
+    }
+
+    .filterButtonIcon:hover {
+        background-color: #3d3d3d;
+        /* slightly lighter */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+        transform: translateY(-1px);
+    }
+
+    .sidebar {
+        position: fixed;
+        left: 20px;
+        bottom: 80px;
+        z-index: 2;
+        border-radius: 10px;
+        box-shadow: 2px 0 12px rgba(0, 0, 0, 0.75);
+        overflow-y: auto;
+
+        /* hidden state */
+        opacity: 0;
+        transform: translateX(-10px);
+        pointer-events: none;
+
+        /* animate these when they change */
+        transition:
+            opacity 0.25s ease,
+            transform 0.25s ease;
+    }
+
+    .sidebar.show {
+        opacity: 1;
+        transform: translateX(0);
+        pointer-events: auto;
+    }
 }
