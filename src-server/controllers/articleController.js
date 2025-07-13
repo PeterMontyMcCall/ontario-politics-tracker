@@ -31,9 +31,20 @@ async function getArticle(req, res) {
         // Sort by date
         const date = req.query.sort || "";
 
-        // Fetch from database
-        const articles = await articleModel.getArticles(searchTerm, outlets, categories, date);
-        res.status(200).json(articles.rows);
+        // Pagination
+        const limit = req.query.limit;
+        const offset = req.query.offset;
+
+        /* Fetch from database */
+        // Fetch articles for this page
+        const articles = await articleModel.getArticles(searchTerm, outlets, categories, date, limit, offset);
+
+        // Fetch total count (without limit/offset)
+        const totalCount = await articleModel.getArticlesCount(searchTerm, outlets, categories);
+        res.status(200).json({
+            articles: articles.rows,
+            totalCount: totalCount.rows[0].count
+        });
     } catch (error) {
         console.error('Error in getArticle controller : ', error);
         if (!res.headersSent) {

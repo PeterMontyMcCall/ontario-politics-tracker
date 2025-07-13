@@ -23,20 +23,20 @@ function NewsFeed({ searchTerm, newsOutlets, categories, date, currentPage, post
         if (checkedNewsOutlets.length) params.push(`outlets=${checkedNewsOutlets.join(",")}`);
         if (checkedCategories.length) params.push(`categories=${checkedCategories.join(",")}`);
         if (date) params.push(`sort=${date}`)
+        /* Pagination */
+        params.push(`limit=${postsPerPage}`) // How many items per page
+        params.push(`offset=${(currentPage - 1) * postsPerPage}`) // How many items to skip
         if (params.length) url += `?${params.join("&")}`;
 
         fetch(url)
             .then(res => res.json())
             .then(data => {
-                setArticles(data);
+                setArticles(data.articles);
+                setTotalPosts(Number(data.totalCount));
                 setLoading(false);
             })
             .catch(() => setLoading(false));
-    }, [searchTerm, newsOutlets, categories, date]);
-
-    useEffect(() => {
-        setTotalPosts(articles.length);
-    }, [articles, setTotalPosts]);
+    }, [searchTerm, newsOutlets, categories, date, currentPage, postsPerPage]);
 
     // If no match found, show empty
     if (articles.length === 0) {
@@ -47,14 +47,14 @@ function NewsFeed({ searchTerm, newsOutlets, categories, date, currentPage, post
 
     /* Pagination */
     // Load 10 posts per page
-    const lastPostIndex = currentPage * postsPerPage;
-    const firstPostIndex = lastPostIndex - postsPerPage;
-    const currentPosts = articles.slice(firstPostIndex, lastPostIndex);
+    // const lastPostIndex = currentPage * postsPerPage;
+    // const firstPostIndex = lastPostIndex - postsPerPage;
+    // const currentPosts = articles.slice(firstPostIndex, lastPostIndex);
 
     return (
         <section className={styles.feed}>
             <ul>
-                {currentPosts.map((article, id) => {
+                {articles.map((article, id) => {
                     const logo = newsOutletsObject[article.source].logo;
                     return (
                         <li key={id} className={styles.article}>

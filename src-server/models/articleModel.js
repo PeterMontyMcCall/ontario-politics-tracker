@@ -23,7 +23,7 @@ async function insertArticle(article) {
     return result;
 }
 
-async function getArticles(searchTerm = "", outlets = [], categories = [], date = "") {
+async function getArticles(searchTerm = "", outlets = [], categories = [], date = "", limit, offset) {
     // Start with the base query for all articles
     let query = "SELECT * FROM article";
     // Store individual SQL WHERE conditions here
@@ -62,16 +62,47 @@ async function getArticles(searchTerm = "", outlets = [], categories = [], date 
     // Sort by Date last
     if (date) query += ` ORDER BY published_at ${date}`;
 
-    // console.log("conditions = ", conditions);
-    // console.log("query = ", query);
-    // console.log("values = ", values, "\n");
+    // Pagination
+    query += ` LIMIT ${limit} OFFSET ${offset}`;
+
+    console.log("conditions = ", conditions);
+    console.log("query = ", query);
+    console.log("values = ", values, "\n");
 
     // Run the query against the database
     const result = await pool.query(query, values);
     return result;
 }
 
+async function getArticlesCount(searchTerm = "", outlets = [], categories = []) {
+    let query = "SELECT COUNT(*) FROM article";
+    let conditions = [];
+    let values = [];
+    let idx = 1;
+
+    if (searchTerm) {
+        conditions.push(`(LOWER(title) LIKE $${idx} OR LOWER(description) LIKE $${idx})`);
+        values.push(`%${searchTerm.toLowerCase()}%`);
+        idx++;
+    }
+    if (outlets.length) {
+        conditions.push(`source = ANY($${idx})`);
+        values.push(outlets.map(o => normalizeOutletDBName(o)));
+        idx++;
+    }
+    if (categories.length) {
+        conditions.push(`categories && $${idx}`);
+        values.push(categories);
+        idx++;
+    }
+    if (conditions.length) {
+        query += " WHERE " + conditions.join(" AND ");
+    }
+    return await pool.query(query, values);
+}
+
 module.exports = {
     insertArticle,
-    getArticles
+    getArticles,
+    getArticlesCount
 };
