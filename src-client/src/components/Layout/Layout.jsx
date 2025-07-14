@@ -10,7 +10,7 @@ function Layout() {
     const [searchTerm, setSearchTerm] = useState("");
 
     // Date drop down menu
-    const [date, setDate] = useState("");
+    const [date, setDate] = useState("desc");
 
     /* News Outlet */
     // Create a useState for every news outlet
@@ -35,7 +35,7 @@ function Layout() {
     /* Pagination */
     const [totalPosts, setTotalPosts] = useState();
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage, setPostsperPage] = useState(5);
+    const [postsPerPage, setPostsperPage] = useState(10);
 
     // Filter button
     const [showFilter, setShowFilter] = useState(false);

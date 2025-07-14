@@ -5,28 +5,34 @@
         "name": "Environment",
         "value": "environment"
     },
-        {
+    {
         "source": "Health",
         "id": "health",
         "name": "Health",
         "value": "health"
     },
-        {
-        "source": "Crimes",
-        "id": "crimes",
-        "name": "Crimes",
-        "value": "crimes"
+    {
+        "source": "Crime",
+        "id": "crime",
+        "name": "Crime",
+        "value": "crime"
     },
-        {
+    {
         "source": "Education",
         "id": "education",
         "name": "Education",
         "value": "education"
     },
-        {
+    {
         "source": "Transportation",
         "id": "transportation",
         "name": "Transportation",
         "value": "transportation"
+    },
+    {
+        "source": "Legislation",
+        "id": "legislation",
+        "name": "Legislation",
+        "value": "legislation"
     }
 ]
