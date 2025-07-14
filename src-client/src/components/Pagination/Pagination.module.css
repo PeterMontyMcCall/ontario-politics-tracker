@@ -20,7 +20,7 @@
     box-shadow: 0 2px 6px 0 rgba(60, 60, 60, 0.11);
     transition: all 0.2s ease;
     outline: none;
-    font-weight: 500
+    font-weight: 500;
 }
 
 .pagination button:hover:not(.active) {
@@ -37,4 +37,16 @@
     border-color: #111;
     box-shadow: 0 6px 18px 0 rgba(44, 44, 44, 0.23);
     font-weight: 700;
+}
+
+.pagination button:disabled,
+.pagination button:disabled:hover {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0;
+    border: 0px;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    background-color: var(--color-bg);
+    cursor: auto;
 }
