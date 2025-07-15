@@ -13,7 +13,7 @@ app.use('/', homeRoutes); // Homepage
 app.use('/articles', articleRoutes); // POST and GET articles
 
 // Start scheduled job
-// require('./scheduler/scheduler'); // cron job
+require('./scheduler/scheduler'); // cron job
 
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
