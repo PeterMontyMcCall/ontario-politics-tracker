@@ -7,7 +7,7 @@ Built with **Express.js**, **PostgreSQL**, **React**, and scheduled with **node-
 
 ---
 
-## 🚀 Features
+## Features
 
 - Automatically fetches recent Ontario-related articles every minute
 - Stores and deduplicates articles in PostgreSQL
@@ -17,6 +17,12 @@ Built with **Express.js**, **PostgreSQL**, **React**, and scheduled with **node-
   - Search
   - Filters (news outlet, category, date)
   - Pagination
+
+---
+
+## Screenshot
+
+![Home Page](/src-shared/screenshots/webpage.png)
 
 ---
 
@@ -35,17 +41,20 @@ Built with **Express.js**, **PostgreSQL**, **React**, and scheduled with **node-
 ```
 src-server/
 ├── app.js               # Express server entrypoint
-├── routes/              # Express routes
+├── db.js                # PostgreSQL connection pool setup
 ├── controllers/         # Route controllers
-├── models/              # Database queries
+├── data/                # Category keywords for article classification
 ├── helpers/             # Utility functions & news fetcher
+├── models/              # Database queries
+├── routes/              # Express routes
 ├── scheduler/           # Cron jobs
 ├── services/            # Article refresh service
 
 src-client/
-├── App.jsx              # React app entrypoint
-├── components/          # Layout, NewsFeed, SearchBar, Filters, etc.
-├── styles/              # CSS modules
+├── src/                  # React components and data
+    ├── App.jsx           # React app entrypoint
+    ├── components/       # Layout, NewsFeed, SearchBar, Filters, etc.
+├── public/               # Website assets
 ```
 
 ---
@@ -63,7 +72,7 @@ src-client/
 git clone https://github.com/your-username/ontario-politics-tracker.git
 cd ontario-politics-tracker
 ```
-
+ 
 ### Install dependencies
 
 ```bash
