@@ -106,8 +106,16 @@ async function getArticlesCount(searchTerm = "", outlets = [], categories = []) 
     return await pool.query(query, values);
 }
 
+async function getLatestPublishedAt() {
+    const result = await pool.query(
+        "SELECT MAX(published_at) AS latest FROM article"
+    );
+    return result.rows[0].latest;
+}
+
 module.exports = {
     insertArticle,
     getArticles,
-    getArticlesCount
+    getArticlesCount,
+    getLatestPublishedAt
 };

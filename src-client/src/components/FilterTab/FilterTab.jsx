@@ -9,15 +9,15 @@ function FilterTab({ newsOutlets, setNewsOutlets, categories, setCategories, dat
         // Create a new object (copying the previous state),
         // update the selected value,
         // and set the new state
-        // setState(prev => ({
-        //     ...prev,
-        //     [value]: checked
-        // }));
-        setState(prev => {
-            const newState = { ...prev, [value]: checked };
-            console.log('Checkbox state:', newState); // <--- Add this
-            return newState;
-        });
+        setState(prev => ({
+            ...prev,
+            [value]: checked
+        }));
+        // setState(prev => {
+        //     const newState = { ...prev, [value]: checked };
+        //     console.log('Checkbox state:', newState); // <--- Add this
+        //     return newState;
+        // });
     };
 
     // Reset button functionality

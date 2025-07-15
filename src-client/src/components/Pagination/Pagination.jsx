@@ -13,7 +13,7 @@ function Pagination({ totalPosts, postsPerPage, setCurrentPage, currentPage }) {
                         className={page === currentPage ? styles.active : ''}
                         disabled={page === "..."}
                     >
-                        {page}
+                        {String(page)}
                     </button>)
             })}
         </section>

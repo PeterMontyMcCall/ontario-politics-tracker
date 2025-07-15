@@ -1,17 +1,16 @@
+import { Link } from 'react-router-dom';
 import styles from './NavBar.module.css'
 
 function NavBar() {
     return (
         <nav className={styles.navbar}>
-            <a className={styles.title} href="/">
+            <Link className={styles.title} to="/">
                 Ontario Politics Tracker
-            </a>
+            </Link>
             <div className={styles.menu}>
-
-
                 <ul className={styles.menuItems}>
                     <li>
-                        <a href="/">About</a>
+                        <Link to="/about">About</Link>
                     </li>
                 </ul>
             </div>

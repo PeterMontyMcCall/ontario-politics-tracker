@@ -17,7 +17,7 @@ function NewsFeed({ searchTerm, newsOutlets, categories, date, currentPage, post
         // Check if any of the checkbox in Categories is checked
         const checkedCategories = Object.keys(categories).filter(key => categories[key]);
 
-        let url = 'http://localhost:3000/articles/get';
+        let url = '/articles/get';
         const params = [];
         if (searchTerm) params.push(`q=${encodeURIComponent(searchTerm)}`);
         if (checkedNewsOutlets.length) params.push(`outlets=${checkedNewsOutlets.join(",")}`);
@@ -44,12 +44,6 @@ function NewsFeed({ searchTerm, newsOutlets, categories, date, currentPage, post
     }
 
     if (loading) return <p>Loading...</p>
-
-    /* Pagination */
-    // Load 10 posts per page
-    // const lastPostIndex = currentPage * postsPerPage;
-    // const firstPostIndex = lastPostIndex - postsPerPage;
-    // const currentPosts = articles.slice(firstPostIndex, lastPostIndex);
 
     return (
         <section className={styles.feed}>

@@ -1,11 +1,10 @@
 const { fetchNewsArticles } = require('../helpers/newsFetcher');
-const { insertArticle } = require('../models/articleModel');
+const { insertArticle, getLatestPublishedAt } = require('../models/articleModel');
 const { categorizeArticle } = require('../helpers/textUtils');
 
 async function refreshArticles() {
-    console.log("🔄 Refreshing article...");
-
-    const articles = await fetchNewsArticles();
+    const latestPublishedAt = await getLatestPublishedAt() || null; // Get the most recent article time from DB
+    const articles = await fetchNewsArticles(latestPublishedAt);
     let inserted = 0;
     let skipped = 0;
 

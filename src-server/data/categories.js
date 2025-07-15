@@ -4,7 +4,7 @@ const categories = {
         "pandemic", "mental health", "wait times", "long-term care"
     ],
     education: [
-        "school", "teacher", "student", "classroom", "curriculum", "university",
+        "education", "school", "teacher", "student", "classroom", "curriculum", "university",
         "college", "tuition", "education funding", "strike"
     ],
     crime: [
@@ -12,16 +12,20 @@ const categories = {
         "assault", "fraud", "gang", "investigation"
     ],
     transportation: [
-        "transit", "subway", "bus", "train", "highway", "traffic",
+        "transportation", "transit", "subway", "bus", "train", "highway", "traffic",
         "commute", "infrastructure", "roadwork", "metrolinx"
     ],
     environment: [
-        "climate", "pollution", "emissions", "carbon", "wildlife", "sustainability",
+        "environment", "climate", "pollution", "emissions", "carbon", "wildlife", "sustainability",
         "greenhouse", "conservation", "ecology", "renewable"
     ],
     legislation: [
-        "bill", "law", "regulation", "parliament", "policy", "amendment",
+        "legislation", "bill", "law", "regulation", "parliament", "policy", "amendment",
         "statute", "committee", "legislative", "debate", "motion"
+    ],
+    employment: [
+        "employment", "jobs", "unemployment", "hiring", "layoff", "career", "workforce", "staffing",
+        "minimum wage", "job creation", "labour market", "union", "strike"
     ]
 };
 
