@@ -1,33 +1,22 @@
 {
   "name": "ontario-politics-tracker",
   "version": "1.0.0",
-  "main": "app.js",
+  "description": "How to build project\r npm install\r npm run devStart",
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "nodemon src-server/app.js",
-    "client": "vite",
-    "client:build": "vite build",
-    "client:preview": "vite preview"
+    "dev": "concurrently \"npm --prefix src-server run dev\" \"npm --prefix src-client run dev\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PeterMontyMcCall/ontario-politics-tracker.git"
   },
   "keywords": [],
-  "author": "Peter Montgomery McCall",
+  "author": "",
   "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
-    "node-cron": "^4.1.0",
-    "nodemon": "^3.1.10",
-    "pg": "^8.16.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.3"
+  "bugs": {
+    "url": "https://github.com/PeterMontyMcCall/ontario-politics-tracker/issues"
   },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^4.6.0",
-    "concurrently": "^9.2.0",
-    "eslint": "^9.30.0",
-    "vite": "^7.0.0"
+  "homepage": "https://github.com/PeterMontyMcCall/ontario-politics-tracker#readme",
+  "dependencies": {
+    "concurrently": "^9.2.0"
   }
 }
