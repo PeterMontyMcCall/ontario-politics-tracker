@@ -9,7 +9,7 @@ Built with **Express.js**, **PostgreSQL**, **React**, and scheduled with **node-
 
 ## Features
 
-- Automatically fetches recent Ontario-related articles every minute
+- Automatically fetches recent Ontario-related articles every hour
 - Stores and deduplicates articles in PostgreSQL
 - Categorizes articles into predefined policy topics using keyword matching
 - REST API to retrieve and filter articles
