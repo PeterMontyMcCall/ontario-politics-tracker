@@ -20,7 +20,7 @@ Built with **Express.js**, **PostgreSQL**, **React**, and scheduled with **node-
 
 ---
 
-## 🧰 Tech Stack
+## Tech Stack
 
 - **Backend:** Node.js, Express.js
 - **Database:** PostgreSQL
@@ -30,7 +30,7 @@ Built with **Express.js**, **PostgreSQL**, **React**, and scheduled with **node-
 
 ---
 
-## 🗂️ Project Structure
+## Project Structure
 
 ```
 src-server/
@@ -50,7 +50,7 @@ src-client/
 
 ---
 
-## 📝 Setup & Installation
+## Setup & Installation
 
 ### Prerequisites
 
