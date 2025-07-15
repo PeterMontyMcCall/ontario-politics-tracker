@@ -1,5 +1,5 @@
 {
-  "name": "ontario-politics-tracker-backend",
+  "name": "ontario-politics-tracker",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
