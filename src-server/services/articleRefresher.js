@@ -34,7 +34,7 @@ async function refreshArticles() {
             }
 
         } catch (error) {
-            console.error(`Failed to insert "${article.title}": ${err.message}`);
+            console.error(`Failed to insert "${article.title}": ${error.message}`);
             skipped++;
         }
     }
