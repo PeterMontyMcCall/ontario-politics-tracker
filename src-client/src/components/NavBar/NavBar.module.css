@@ -33,11 +33,12 @@
     font-size: 1.2em;
     color: var(--color-text);
     text-decoration: none;
-    transition: color 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
 }
 
 .menuItems a:hover {
-    color: red;
+    color: #0056b3;
+    font-weight: 600;
 }
 
 @media (max-width: 1600px) {
