@@ -4,7 +4,7 @@ import { getImageUrl } from "../../utils";
 import { useEffect, useState } from 'react';
 import data from '../../data/dummy_data.json';
 
-function NewsFeed({ searchTerm, newsOutlets, categories, date, currentPage, postsPerPage, setTotalPosts }) {
+function NewsFeed({ searchTerm, newsOutlets, categories, date, currentPage, postsPerPage, setTotalPosts, setCurrentPage }) {
     const [filteredArticles, setFilteredArticles] = useState(data);
 
     useEffect(() => {
@@ -34,6 +34,7 @@ function NewsFeed({ searchTerm, newsOutlets, categories, date, currentPage, post
 
         setFilteredArticles(result);
         setTotalPosts(result.length);
+        setCurrentPage(1);
     }, [searchTerm, newsOutlets, categories]);
 
     // If no match found, show empty

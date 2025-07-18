@@ -69,6 +69,7 @@ function Layout() {
                     currentPage={currentPage}
                     postsPerPage={postsPerPage}
                     setTotalPosts={setTotalPosts}
+                    setCurrentPage={setCurrentPage}
                 />
                 <Pagination
                     totalPosts={totalPosts}
