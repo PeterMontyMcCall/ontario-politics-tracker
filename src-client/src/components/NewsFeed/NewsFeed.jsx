@@ -2,59 +2,84 @@ import styles from './NewsFeed.module.css';
 import newsOutletsObject from '../../../../src-shared/newsOutlet.js';
 import { getImageUrl } from "../../utils";
 import { useEffect, useState } from 'react';
+import data from '../../data/dummy_data.json';
 
 function NewsFeed({ searchTerm, newsOutlets, categories, date, currentPage, postsPerPage, setTotalPosts }) {
-    // Fetch from backend
-    const [articles, setArticles] = useState([]);
-    const [loading, setLoading] = useState(true);
+    // // Check if any of the checkbox in News Outlets is checked
+    // const checkedNewsOutlets = Object.keys(newsOutlets).filter(outlet => newsOutlets[outlet]);
+
+    // // Check if any of the checkbox in Categories is checked
+    // const checkedCategories = Object.keys(categories).filter(cat => categories[cat]);
+
+    // // Filter articles
+    // const filteredArticles = data.filter(article => {
+    //     // Filter by news outlets
+    //     if (checkedNewsOutlets.length !== 0) {
+    //         if (!newsOutlets[normalizeOutletName(article.source)]) return false;
+    //     }
+
+    //     // Filter by categories
+    //     if (checkedCategories.length !== 0) {
+    //         if (!article.categories.some((cat) => categories[cat.toLowerCase()] === true)) return false;
+    //     }
+
+    //     if (!searchTerm) return true; // If search is empty, show all
+
+    //     // Filter by search bar
+    //     const text = `${article.title} ${article.description}`.toLowerCase();
+    //     return text.includes(searchTerm.toLowerCase());
+    // })
+    const [filteredArticles, setFilteredArticles] = useState(data);
 
     useEffect(() => {
-        setLoading(true);
-
         // Check if any of the checkbox in News Outlets is checked
-        const checkedNewsOutlets = Object.keys(newsOutlets).filter(key => newsOutlets[key]);
-
+        const checkedNewsOutlets = Object.keys(newsOutlets).filter(outlet => newsOutlets[outlet]);
         // Check if any of the checkbox in Categories is checked
-        const checkedCategories = Object.keys(categories).filter(key => categories[key]);
+        const checkedCategories = Object.keys(categories).filter(cat => categories[cat]);
 
-        let url = '/articles/get';
-        const params = [];
-        if (searchTerm) params.push(`q=${encodeURIComponent(searchTerm)}`);
-        if (checkedNewsOutlets.length) params.push(`outlets=${checkedNewsOutlets.join(",")}`);
-        if (checkedCategories.length) params.push(`categories=${checkedCategories.join(",")}`);
-        if (date) params.push(`sort=${date}`)
-        /* Pagination */
-        params.push(`limit=${postsPerPage}`) // How many items per page
-        params.push(`offset=${(currentPage - 1) * postsPerPage}`) // How many items to skip
-        if (params.length) url += `?${params.join("&")}`;
+        // Filter articles
+        const result = data.filter(article => {
+            // Filter by news outlets
+            if (checkedNewsOutlets.length !== 0) {
+                if (!newsOutlets[normalizeOutletName(article.source)]) return false;
+            }
 
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                setArticles(data.articles);
-                setTotalPosts(Number(data.totalCount));
-                setLoading(false);
-            })
-            .catch(() => setLoading(false));
-    }, [searchTerm, newsOutlets, categories, date, currentPage, postsPerPage]);
+            // Filter by categories
+            if (checkedCategories.length !== 0) {
+                if (!article.categories.some(cat => categories[cat.toLowerCase()] === true)) return false;
+            }
+
+            if (!searchTerm) return true;
+
+            // Filter by search bar
+            const text = `${article.title} ${article.description}`.toLowerCase();
+            return text.includes(searchTerm.toLowerCase());
+        });
+
+        setFilteredArticles(result);
+        setTotalPosts(result.length);
+    }, [searchTerm, newsOutlets, categories]);
 
     // If no match found, show empty
-    if (articles.length === 0) {
+    if (filteredArticles.length === 0) {
         return (<p className={styles.emptyFeed}>No articles found...</p>);
     }
 
-    if (loading) return <p>Loading...</p>
+    /* Pagination */
+    const lastPostIndex = currentPage * postsPerPage;
+    const firstPostIndex = lastPostIndex - postsPerPage;
+    const currentPosts = filteredArticles.slice(firstPostIndex, lastPostIndex);
 
     return (
         <section className={styles.feed}>
             <ul className={styles.feedList}>
-                {articles.map((article, id) => {
+                {currentPosts.map((article, id) => {
                     const logo = newsOutletsObject[article.source].logo;
                     return (
                         <li key={id} className={styles.article}>
                             <div className={styles.articleHeader}>
                                 <h1 className={styles.title}>{article.title}</h1>
-                                <p className={styles.date}>{article.published_at.slice(0, 10)}</p>
+                                <p className={styles.date}>{article.published_at}</p>
                             </div>
                             <div
                                 className={styles.logoContainer}
@@ -94,6 +119,13 @@ function NewsFeed({ searchTerm, newsOutlets, categories, date, currentPage, post
             </ul>
         </section>
     );
+}
+
+function normalizeOutletName(name) {
+    return name
+        .toLowerCase()           // all lowercase
+        .replace(/\s+/g, "_")    // spaces to underscores
+        .replace(/[^\w_]/g, ""); // remove non-word chars except underscore
 }
 
 export default NewsFeed;

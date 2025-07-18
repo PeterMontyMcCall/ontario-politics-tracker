@@ -35,7 +35,7 @@ function Layout() {
     /* Pagination */
     const [totalPosts, setTotalPosts] = useState();
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage, setPostsperPage] = useState(10);
+    const [postsPerPage, setPostsperPage] = useState(5);
 
     // Filter button
     const [showFilter, setShowFilter] = useState(false);

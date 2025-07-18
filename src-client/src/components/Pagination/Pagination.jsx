@@ -1,6 +1,12 @@
 import styles from './Pagination.module.css';
 
 function Pagination({ totalPosts, postsPerPage, setCurrentPage, currentPage }) {
+    // Default to 0 if undefined, and compute total pages
+    const total = Number.isFinite(totalPosts) ? totalPosts : 0;
+    const totalPages = Math.ceil(total / postsPerPage);
+
+    if (totalPages < 1) return null; // Don’t render anything if no pages
+
     const pageNumbers = getPageNumbers(currentPage, Math.ceil(totalPosts / postsPerPage));
 
     return (
