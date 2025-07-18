@@ -37,7 +37,8 @@
 }
 
 .menuItems a:hover {
-    color: red;
+    color: #0056b3;
+    font-weight: 600;
 }
 
 @media (max-width: 1600px) {
