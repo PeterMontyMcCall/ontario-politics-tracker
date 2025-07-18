@@ -24,7 +24,7 @@ async function fetchPage(page = 1, fromISOString) {
     if (fromISOString) params.set('from', fromISOString);
     params.set('apiKey', NEWS_API_KEY);
 
-    console.log("URL from newsFetcher: ", url.toString());
+    // console.log("URL from newsFetcher: ", url.toString());
     const res = await fetch(url);
     if (!res.ok) throw new Error(`NewsAPI error ${res.status}: ${res.statusText}`);
 
