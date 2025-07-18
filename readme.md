@@ -3,7 +3,7 @@
 **Ontario Politics Tracker** is a full-stack web application that tracks, categorizes, and displays Ontario political news articles.\
 It automatically fetches articles from major Canadian news outlets, categorizes them by topic, and presents them in a searchable and filterable interface.
 
-Built with **Express.js**, **PostgreSQL**, **React**, and scheduled with **node-cron**.
+Built with **Express.js**, **PostgreSQL**, **React**, and scheduled with **node-cron**.\
 **Demo Website:** https://ontario-politics-tracker-demo.vercel.app/
 
 ---
