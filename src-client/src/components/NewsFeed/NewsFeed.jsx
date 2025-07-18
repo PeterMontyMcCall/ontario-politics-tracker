@@ -5,30 +5,6 @@ import { useEffect, useState } from 'react';
 import data from '../../data/dummy_data.json';
 
 function NewsFeed({ searchTerm, newsOutlets, categories, date, currentPage, postsPerPage, setTotalPosts }) {
-    // // Check if any of the checkbox in News Outlets is checked
-    // const checkedNewsOutlets = Object.keys(newsOutlets).filter(outlet => newsOutlets[outlet]);
-
-    // // Check if any of the checkbox in Categories is checked
-    // const checkedCategories = Object.keys(categories).filter(cat => categories[cat]);
-
-    // // Filter articles
-    // const filteredArticles = data.filter(article => {
-    //     // Filter by news outlets
-    //     if (checkedNewsOutlets.length !== 0) {
-    //         if (!newsOutlets[normalizeOutletName(article.source)]) return false;
-    //     }
-
-    //     // Filter by categories
-    //     if (checkedCategories.length !== 0) {
-    //         if (!article.categories.some((cat) => categories[cat.toLowerCase()] === true)) return false;
-    //     }
-
-    //     if (!searchTerm) return true; // If search is empty, show all
-
-    //     // Filter by search bar
-    //     const text = `${article.title} ${article.description}`.toLowerCase();
-    //     return text.includes(searchTerm.toLowerCase());
-    // })
     const [filteredArticles, setFilteredArticles] = useState(data);
 
     useEffect(() => {
